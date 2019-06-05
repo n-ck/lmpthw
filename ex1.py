@@ -18,6 +18,11 @@
 # 6. Researched argv, switched research to the argparse package
 # 7. Reading argparse documentation and trying (copy and pasting examples)
 # 15-20 minutes so far
+# 8. Research and implement arguments that are flags in argparse
+# 9. Moved on to research and implementation of options arguments and positional arguments
+# 10. Added help text to new args
+# 11. Added all args without further script
+# 20 min. progress
 
 import sys
 import argparse
@@ -34,9 +39,19 @@ import argparse
 
 ## Using argparse:
 parser = argparse.ArgumentParser(description='Creating a parser')
-parser.add_argument('--foo', help='foo help')
-parser.add_argument("echo", help="echo the string you use here") # positional argument
-parser.add_argument("--verbosity", help="increase output verbosity") # optional positional argument
+
+parser.add_argument('-w', action='store_true', help="flag 1") # flag argument
+parser.add_argument('--boom', action='store_true', help="flag 2") # flag argument
+parser.add_argument('-t', '--three', action='store_true', help="flag 3") # flag argument
+
+parser.add_argument("-b", help="increase output verbosity") # optional argument
+parser.add_argument('--foo', help='foo help') # optional argument
+parser.add_argument("--verbosity", help="increase output verbosity") # optional argument
+
+parser.add_argument("echo", help="echo the string you use here") # positional argument (required)
+parser.add_argument("files", help="echo the string you use here") # positional argument (required)
+
+
 args = parser.parse_args()
 
 print args
@@ -44,3 +59,4 @@ print args
 print args.echo
 
 print args.foo
+
