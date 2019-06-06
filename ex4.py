@@ -23,6 +23,9 @@
 # 10. Added help text to new args
 # 11. Added all args without further script
 # 20 min. progress
+# 12. Checked solution, researched and implemented args I didn't have or fully understand
+# 10 min spend
+# Total 45-50 min
 
 import sys
 import argparse
@@ -40,9 +43,9 @@ import argparse
 ## Using argparse:
 parser = argparse.ArgumentParser(description='Creating a parser')
 
-parser.add_argument('-w', action='store_true', help="flag 1") # flag argument
+parser.add_argument('-w', action='store_true', help="flag 1") # flag argument  - Returns False if argument is not present
 parser.add_argument('--boom', action='store_true', help="flag 2") # flag argument
-parser.add_argument('-t', '--three', action='store_true', help="flag 3") # flag argument
+parser.add_argument('-t', '--three', action='store_false', help="flag 3") # flag argument - Returns True if argument is not present
 
 parser.add_argument("-b", help="increase output verbosity") # optional argument
 parser.add_argument('--foo', help='foo help') # optional argument
@@ -51,6 +54,7 @@ parser.add_argument("--verbosity", help="increase output verbosity") # optional 
 parser.add_argument("echo", help="echo the string you use here") # positional argument (required)
 parser.add_argument("files", help="echo the string you use here") # positional argument (required)
 
+parser.add_argument('numbers', type=int, nargs="+") # type=int for integers, use nargs="+" to turn multiple values into a list
 
 args = parser.parse_args()
 
