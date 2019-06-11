@@ -6,30 +6,51 @@ parser = argparse.ArgumentParser()
 parser.add_argument("directory", help="directory to search in") # positional argument
 parser.add_argument("-name", help="name to search, pattern match")
 parser.add_argument("-type", help="type of the searched pattern")
-parser.add_argument("-print", help="print the search results")
+parser.add_argument("-print", action="store_true", help="print the search results")
 
 args = parser.parse_args()
 
-subprocess.call(['pwd', 'ls', '-1'], shell=True)
-subprocess.call('echo $HOME', shell=True)
+# print args
 
-print args.directory
+## Subprocess module:
+# subprocess.call(['pwd', 'ls', '-1'], shell=True)
+# subprocess.call('echo $HOME', shell=True)
 
-print args.name
+file_list = []
+dir = '/Users/nick/Documents/code/lmpthw/'
+for name in glob.glob('/Users/nick/Documents/code/lmpthw/*'):
+    # print name
+    name = name.split('/Users/nick/Documents/code/lmpthw/')
+    file_list.append(name[1])
+
+# print file_list
+
+# print "Directory: ", args.directory
+
+# print "-name ", args.name
 
 # type_list = ['b', 'c', 'd', 'f', 'l', 'p', 's']
 type_list = ['d', 'f']
 
 # print glob.glob("~")
 
-if args.name:
-    print args.name
+print args.name
+print file_list
+
+if args.name in file_list:
+    print "yes it's in the list"
+    # print args.name
+    for file in file_list:
+        if args.name in file:
+            print file
+else:
+    print "No results..."
 
 if args.type:
     if args.type == 'd':
-        print "directory"
+        print "search type: directory"
     elif args.type == 'f':
-        print "file"
+        print "search type: file"
 
 
 # sudo code: 
@@ -40,7 +61,8 @@ if args.type:
 
 
 # 45 minutes into the exercise including research
-#
+# start 6/11 1:04pm
+
 
 # Exercise / General format of find:
 # 1. The directory to start searching in: . or /usr/local/.
