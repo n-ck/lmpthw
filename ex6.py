@@ -6,45 +6,55 @@ parser = argparse.ArgumentParser()
 parser.add_argument("directory", help="directory to search in") # positional argument
 parser.add_argument("-name", help="name to search, pattern match")
 parser.add_argument("-type", help="type of the searched pattern")
-parser.add_argument("-print", action="store_true", help="print the search results")
+parser.add_argument("-prnt", action="store_true", help="print the search results")
 
 args = parser.parse_args()
 
 # print args
 
 ## Subprocess module:
-# subprocess.call(['pwd', 'ls', '-1'], shell=True)
+search_dir = subprocess.check_output(['pwd', 'ls', '-1'], shell=True)
+# search_dir = subprocess.Popen(['pwd', 'ls', '-1'], stdout=subprocess.PIPE)
+# stdout = search_dir.stdout.read()
+# print stdout
 # subprocess.call('echo $HOME', shell=True)
 
 file_list = []
-dir = '/Users/nick/Documents/code/lmpthw/'
-for name in glob.glob('/Users/nick/Documents/code/lmpthw/*'):
-    # print name
-    name = name.split('/Users/nick/Documents/code/lmpthw/')
+s_dir = search_dir.rstrip()
+dir = s_dir + '/*'
+# print dir
+
+for name in glob.glob(dir):
+    dir_wo_file = s_dir + '/'
+    name = name.split(dir_wo_file)
     file_list.append(name[1])
 
 # print file_list
 
 # print "Directory: ", args.directory
 
-# print "-name ", args.name
+# print "-name ", args.name\
+# print args.prnt
 
 # type_list = ['b', 'c', 'd', 'f', 'l', 'p', 's']
 type_list = ['d', 'f']
 
 # print glob.glob("~")
 
-print args.name
-print file_list
+# print args.name
+# print file_list
 
-if args.name in file_list:
-    print "yes it's in the list"
+if args.name:
+#     print "yes it's in the list"
     # print args.name
     for file in file_list:
         if args.name in file:
-            print file
-else:
-    print "No results..."
+            if args.prnt:
+                print file
+            else:
+                pass
+# else:
+#     print "No results..."
 
 if args.type:
     if args.type == 'd':
